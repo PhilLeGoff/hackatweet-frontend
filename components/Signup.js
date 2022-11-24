@@ -31,11 +31,12 @@ function SignUp() {
     .then(data => {
       // console.log(data)
       if (data.result) {
-        dispatch(login({ username: signUpUsername, token: data.user.token }));
+        dispatch(login({ username: data.user.username, token: data.user.token, firstname: data.user.firstname}));
         setSignUpFirstname('');
         setSignUpUsername('');
         setSignUpPassword('');
         setIsSignUpVisible(false)
+        router.push('/profile')
       }
     })
   }

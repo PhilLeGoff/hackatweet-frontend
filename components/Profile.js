@@ -4,6 +4,7 @@ import { useDispatch, useSelector} from 'react-redux'
 import { logout } from '../reducers/user'
 import { useRouter } from 'next/router'
 import Tweet from './Tweet'
+import ShowUser from './ShowUser'
 
 export default function Profile({setIsConnected} ) {
     const username = useSelector((state) => state.user.value.username);
@@ -33,11 +34,7 @@ export default function Profile({setIsConnected} ) {
     }
   return (
     <div className={styles.profileContainer}>
-        <div>
-            <p>ICON//</p>
-            <p>NOM + ICONE + @username</p>
-            <button onClick={() => handleLogout()}/>
-        </div>   
+        <ShowUser/>
         <div>
             <h2>Home</h2>
             <input type="text" placeholder="What's on my mind..." onChange={(e) => setTweet(e.target.value)} value={tweet}/>
