@@ -1,4 +1,4 @@
-import styles from '../styles/profile.module.css';
+import styles from '../styles/Profile.module.css';
 import {useState} from 'react'
 import { useDispatch, useSelector} from 'react-redux'
 import { logout } from '../reducers/user'

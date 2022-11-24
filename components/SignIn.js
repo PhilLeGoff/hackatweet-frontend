@@ -1,4 +1,4 @@
-import styles from '../styles/Home.module.css';
+import styles from '../styles/SignIn.module.css';
 const fetch = require('node-fetch')
 import { Modal } from 'antd';
 import { useState } from 'react'
@@ -47,7 +47,7 @@ function SignIn() {
 
     return (
         <div>
-        <button onClick={() => showSignInModal()}>Sign In</button>
+        <button className={styles.signInBtn} onClick={() => showSignInModal()}>Sign In</button>
         {isSignInVisible && <div id="react-modals">
 				<Modal getContainer="#react-modals" className={styles.modal} visible={isSignInVisible} closable={false} footer={null}>
 					{signInModal}
