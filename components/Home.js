@@ -4,6 +4,8 @@ import { Modal } from 'antd';
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../reducers/user';
+import Profile from '../components/Profile'
+import Tweet from '../components/Tweet'
 
 function Home() {
   const [isSignUpVisible, setIsSignUpVisible] = useState(false);
@@ -59,6 +61,7 @@ function Home() {
 					setSignInPassword('');
 					setIsSignInVisible(false)
           console.log(connectedUser)
+
 				}
 			});
 	};
@@ -80,13 +83,6 @@ function Home() {
 
   return (
     <div>
-<<<<<<< HEAD
-      {/* <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-      </main> */}
-=======
       <main className={styles.main}>
       {isSignUpVisible && <div id="react-modals">
 				<Modal getContainer="#react-modals" className={styles.modal} visible={isSignUpVisible} closable={false} footer={null}>
@@ -100,11 +96,16 @@ function Home() {
 			</div>}
         <div className={styles.rightside}></div>
         <div className={styles.leftside}>
+          <p>LOGO</p>
+          <h1>See what's happenin' ..</h1>
+          <h3>Join CackaTweet Today</h3>
           <button onClick={() => showSignUpModal()}>Sign Up</button>
+          <p>Already have an account ?</p>
           <button onClick={() => showSignInModal()}>Sign In</button>
         </div>
       </main>
->>>>>>> d4c9058e763d27c6658a421cf05d1811e7d93317
+      <Profile />
+      <Tweet />
     </div>
   );
 }

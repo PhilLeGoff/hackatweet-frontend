@@ -22,15 +22,20 @@
 }
 
 .rightside {
+  background-image: url(./bird-shit-in-hair.jpg);
+  background-repeat: no-repeat;
+  background-size: 100vh;
+  background-position: center;
   width: 40vw;
   height: 100vh;
-  border: 1px solid red
+  /* border: 1px solid red; */
+  padding: none
 }
 
 .leftside {
   width: 60vw;
   height: 100vh;
-  border: 1px solid blue
+  /* border: 1px solid blue */
 
 }
 

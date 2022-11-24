@@ -1,8 +1,10 @@
 import styles from '../styles/profile.module.css';
 import {useState} from 'react'
+import { useSelector } from 'react-redux';
 
 export default function Profile() {
-
+    const username = useSelector((state) => state.user.value.username);
+    const firstname = useSelector((state) => state.user.value.firstname);
     const [tweet, setTweet] = useState('')
 
     const handleClickTweet = () => {
@@ -10,9 +12,10 @@ export default function Profile() {
         fetch("http://localhost:3000/tweets", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({ tweet: tweet })
+            body: JSON.stringify({ tweet: tweet, username: username, firstname: firstname})
         }).then(res => res.json())
         .then(data => {
+            console.log(data);
             setTweet('')
         })
         
