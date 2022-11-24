@@ -1,8 +1,12 @@
 import styles from '../styles/profile.module.css';
 import {useState} from 'react'
+import { useDispatch} from 'react-redux'
+import { logout } from '../reducers/user'
+import { useRouter } from 'next/router'
 
-export default function Profile() {
-
+export default function Profile({setIsConnected} ) {
+    const router = useRouter()
+    const dispatch = useDispatch()
     const [tweet, setTweet] = useState('')
 
     const handleClickTweet = () => {
@@ -18,11 +22,16 @@ export default function Profile() {
         
     }
 
+    const handleLogout = () => {
+        dispatch(logout())
+        router.push('/')
+    }
   return (
     <div className={styles.profileContainer}>
         <div>
             <p>ICON//</p>
             <p>NOM + ICONE + @username</p>
+            <button onClick={() => handleLogout()}/>
         </div>   
         <div>
             <h2>Home</h2>

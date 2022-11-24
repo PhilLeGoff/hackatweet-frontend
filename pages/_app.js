@@ -1,17 +1,6 @@
 import '../styles/globals.css';
 import Head from 'next/head';
 
-<<<<<<< HEAD
-
-function App({ Component, pageProps }) {
-  return (
-    <>
-      <Head>
-        <title>Welcome</title>
-      </Head>
-      <Component {... pageProps}/>
-    </>
-=======
 import { Provider } from 'react-redux';
 import user from '../reducers/user';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
@@ -39,7 +28,6 @@ function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </PersistGate>
     </Provider>
->>>>>>> d4c9058e763d27c6658a421cf05d1811e7d93317
   );
 }
 
