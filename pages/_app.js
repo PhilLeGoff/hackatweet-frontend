@@ -1,13 +1,14 @@
 import '../styles/globals.css';
 import Head from 'next/head';
 
+
 function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Next.js App</title>
+        <title>Welcome</title>
       </Head>
-      <Component {...pageProps} />
+      <Component {... pageProps}/>
     </>
   );
 }
