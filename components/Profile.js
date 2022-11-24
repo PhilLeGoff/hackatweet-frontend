@@ -1,10 +1,16 @@
 import styles from '../styles/profile.module.css';
 import {useState} from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux'
+import { logout } from '../reducers/user'
+import { useRouter } from 'next/router'
+import Tweet from './Tweet'
 
-export default function Profile() {
+export default function Profile({setIsConnected} ) {
     const username = useSelector((state) => state.user.value.username);
     const firstname = useSelector((state) => state.user.value.firstname);
+
+    const router = useRouter()
+    const dispatch = useDispatch()
     const [tweet, setTweet] = useState('')
 
     const handleClickTweet = () => {
@@ -21,18 +27,23 @@ export default function Profile() {
         
     }
 
+    const handleLogout = () => {
+        dispatch(logout())
+        router.push('/')
+    }
   return (
     <div className={styles.profileContainer}>
         <div>
             <p>ICON//</p>
             <p>NOM + ICONE + @username</p>
+            <button onClick={() => handleLogout()}/>
         </div>   
         <div>
             <h2>Home</h2>
             <input type="text" placeholder="What's on my mind..." onChange={(e) => setTweet(e.target.value)} value={tweet}/>
             <button onClick={() => handleClickTweet()}>Tweety</button>
             <div>
-                COMPOSANTS tweets etc...
+                <Tweet />
             </div>
         </div>   
         <div>

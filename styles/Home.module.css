@@ -21,24 +21,32 @@
   text-decoration: underline;
 }
 
-.rightside {
+.leftside {
   background-image: url(./bird-shit-in-hair.jpg);
   background-repeat: no-repeat;
-  background-size: 100vh;
+  background-size: 100vh 100vw;
   background-position: center;
   width: 40vw;
   height: 100vh;
-  /* border: 1px solid red; */
   padding: none
 }
 
-.leftside {
+.rightside {
   width: 60vw;
   height: 100vh;
-  /* border: 1px solid blue */
-
+  padding-left: 5vw;
 }
-
+.mainContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.connectionContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* margin-left: 5vw; */
+}
 .registeredContainer {
 	display: flex;
 	justify-content: center;
