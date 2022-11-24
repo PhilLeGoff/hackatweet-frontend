@@ -27,11 +27,6 @@ export default function Profile({setIsConnected} ) {
         })
         
     }
-
-    const handleLogout = () => {
-        dispatch(logout())
-        router.push('/')
-    }
   return (
     <div className={styles.profileContainer}>
         <ShowUser/>
