@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import Moment from 'react-moment';
+import moment from 'moment'
 
 export default function Tweet() {
   const firstname = useSelector((state) => state.user.value);
   const username = useSelector((state) => state.user.value.username);
-  console.log('username', username);
-  console.log('firstname', firstname);
+  const createdAt = useSelector((state) => state.tweet)
+  console.log('created', createdAt);
+// recupe la date de creation du tweet
+// compare with current date
 
   const [tweetsData, setTweetsData] = useState([]);
 
@@ -13,25 +17,22 @@ export default function Tweet() {
     fetch('http://localhost:3000/tweets')
       .then((response) => response.json())
       .then((data) => {
-        // console.log('tweet', data);
         setTweetsData(data);
       });
   }, []);
-  // console.log(tweetsData);
-  
-    const tweets = tweetsData.map((data, i) => {
-        console.log('map', data);
-      return (
-        <div key={i}>
-          <div>
-            <span>{username}</span>@username + Temps écoulé
-          </div>
-          <p>{data.tweet}</p>
-          <div>LIKES</div>
+
+  const tweets = tweetsData.map((data, i) => {
+    return (
+      <div key={i}>
+        <div>
+          <span>{username}</span>@username +{' '}
+          <span>10min ago</span>
         </div>
-      );
-    });
-  
+        <p>{data.tweet}</p>
+        <div>LIKES</div>
+      </div>
+    );
+  });
 
   return <div>{tweets}</div>;
 }
