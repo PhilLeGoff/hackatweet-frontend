@@ -9,7 +9,7 @@ export const tweetSlice = createSlice({
     initialState,
     reducers: {
         createdAt: (state, action)=> {
-            state.value.date = action.payload.date
+            state.value.date = action.payload
         }
     },
   });
