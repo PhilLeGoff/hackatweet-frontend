@@ -17,8 +17,12 @@ export const trendSlice = createSlice({
                 console.log('strs', data)
                 if (data[0] === '#') {
                     console.log('found trend', data)
-                    if (!state.value.find(trend => trend === data))
-                        state.value.push(data)
+                    const hashIndex = state.value.findIndex(trendd => trendd.trend === data)
+                    console.log(hashIndex)
+                        if (hashIndex !== -1)
+                            state.value[hashIndex].number = state.value[hashIndex].number + 1;
+                        else 
+                            state.value.push({trend: data, number: 0})
                 }
             })
         }

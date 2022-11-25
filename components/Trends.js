@@ -6,7 +6,10 @@ export default function Trends() {
     // console.log('trends', trends)
 
     const allTrends = trends.map((data, i) => {
-        return (<p>{data}</p>)
+        return (<div>
+            <p>{data.trend}</p>
+            <p>{data.number}</p>
+        </div>)
     })
     return (<div>{allTrends}</div>)
 }
