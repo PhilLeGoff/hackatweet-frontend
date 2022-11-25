@@ -1,32 +1,39 @@
 import styles from '../styles/profile.module.css';
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import { useDispatch, useSelector} from 'react-redux'
 import { logout } from '../reducers/user'
+import { addTweet } from '../reducers/tweet';
 import { useRouter } from 'next/router'
 import Tweet from './Tweet'
 import ShowUser from './ShowUser'
 
 export default function Profile({setIsConnected} ) {
+    const [renderTweets, setRenderTweets] = useState(0)
     const username = useSelector((state) => state.user.value.username);
     const firstname = useSelector((state) => state.user.value.firstname);
+    const allTweets = useSelector((state) => state.tweet.value)
 
     const router = useRouter()
     const dispatch = useDispatch()
     const [tweet, setTweet] = useState('')
 
     const handleClickTweet = () => {
-        // console.log("couille");
         fetch("http://localhost:3000/tweets", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({ tweet: tweet, username: username, firstname: firstname})
-        }).then(res => res.json())
-        .then(data => {
-            console.log(data);
+        })
+        .then(response => response.json())
+        .then((data) => {
+            dispatch(addTweet({
+                firstname: data.newTweet.firstname,
+                username: data.newTweet.username,
+                tweet: data.newTweet.tweet,
+                likes: data.newTweet.likes}))
             setTweet('')
         })
-        
     }
+
   return (
     <div className={styles.profileContainer}>
         <ShowUser/>
