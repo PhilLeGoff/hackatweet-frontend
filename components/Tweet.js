@@ -1,35 +1,30 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Moment from 'react-moment';
-import moment from 'moment'
+import moment from 'moment';
 
 export default function Tweet() {
   const firstname = useSelector((state) => state.user.value);
   const username = useSelector((state) => state.user.value.username);
-  const createdAt = useSelector((state) => state.tweet)
-  console.log('created', createdAt);
-// recupe la date de creation du tweet
-// compare with current date
-
+  const createdAt = useSelector((state) => state.tweet.value);
+  // console.log('created', createdAt);
+  const allTweets = useSelector((state) => state.tweet.value);
   const [tweetsData, setTweetsData] = useState([]);
+  const date = moment(new Date(Date.now())).format('mm');
+// console.log("date now", date);
 
-  useEffect(() => {
-    fetch('http://localhost:3000/tweets')
-      .then((response) => response.json())
-      .then((data) => {
-        setTweetsData(data);
-      });
-  }, []);
+const tweets = allTweets.map((data, i) => {
+  const createdAt = moment(data.createdAt).format("mm");
+  const timer = date - createdAt;
 
-  const tweets = tweetsData.map((data, i) => {
+
     return (
       <div key={i}>
         <div>
-          <span>{username}</span>@username +{' '}
-          <span>10min ago</span>
+          <span>{data.firstname}</span>@{username} {timer}minute(s) ago
         </div>
         <p>{data.tweet}</p>
-        <div>LIKES</div>
+        <div>{data.likes}</div>
       </div>
     );
   });

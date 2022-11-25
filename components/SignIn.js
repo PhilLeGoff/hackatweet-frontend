@@ -27,7 +27,7 @@ function SignIn() {
             }).then(response => response.json())
                 .then(data => {
                     if (data.result) {
-                        dispatch(login({ username: signInUsername, token: data.user.token }));
+                        dispatch(login({ username: data.user.username, token: data.user.token, firstname: data.user.firstname }));
                         setSignInUsername('');
                         setSignInPassword('');
                         setIsSignInVisible(false)
