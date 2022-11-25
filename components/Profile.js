@@ -1,59 +1,71 @@
 import styles from '../styles/profile.module.css';
-import {useEffect, useState} from 'react'
-import { useDispatch, useSelector} from 'react-redux'
-import { logout } from '../reducers/user'
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+// import { logout } from '../reducers/user'
 import { addTweet } from '../reducers/tweet';
 import { addTrend } from '../reducers/trend';
-import { useRouter } from 'next/router'
-import Tweet from './Tweet'
-import ShowUser from './ShowUser'
-import Trends from './Trends'
+import { useRouter } from 'next/router';
+import Tweet from './Tweet';
+import ShowUser from './ShowUser';
+import Trends from './Trends';
 import { find } from '../../hackatweet-backend/models/tweets';
 
-export default function Profile({setIsConnected} ) {
-    const username = useSelector((state) => state.user.value.username);
-    const firstname = useSelector((state) => state.user.value.firstname);
-    const allTweets = useSelector((state) => state.tweet.value)
+export default function Profile({ setIsConnected }) {
+  const dispatch = useDispatch();
+  const username = useSelector((state) => state.user.value.username);
+  const firstname = useSelector((state) => state.user.value.firstname);
+  const allTweets = useSelector((state) => state.tweet.value);
 
-    const router = useRouter()
-    const dispatch = useDispatch()
-    const [tweet, setTweet] = useState('')
+  const router = useRouter();
+  const [tweet, setTweet] = useState('');
 
-    const handleClickTweet = () => {
-        fetch("http://localhost:3000/tweets", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({ tweet: tweet, username: username, firstname: firstname})
-        })
-        .then(response => response.json())
-        .then((data) => {
-            dispatch(addTrend(data.newTweet.tweet))
-            dispatch(addTweet({
-                firstname: data.newTweet.firstname,
-                username: data.newTweet.username,
-                tweet: data.newTweet.tweet,
-                likes: data.newTweet.likes,
-                createdAt: Date.now()}))
-            setTweet('')
-        })
-    }
-
+  const handleClickTweet = () => {
+    fetch('http://localhost:3000/tweets', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tweet: tweet,
+        username: username,
+        firstname: firstname,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch(addTrend(data.newTweet.tweet));
+        dispatch(
+          addTweet({
+            firstname: data.newTweet.firstname,
+            username: data.newTweet.username,
+            tweet: data.newTweet.tweet,
+            likes: data.newTweet.likes,
+            createdAt: new Date(Date.now()),
+          })
+        );
+        setTweet('');
+      });
+  };
   return (
     <div className={styles.profileContainer}>
-        <ShowUser/>
+      <ShowUser />
+      <div>
+        <h2>Home</h2>
+        <input
+          type="text"
+          placeholder="What's on my mind..."
+          onChange={(e) => setTweet(e.target.value)}
+          value={tweet}
+        />
+        <button onClick={() => handleClickTweet()}>Tweety</button>
         <div>
-            <h2>Home</h2>
-            <input type="text" placeholder="What's on my mind..." onChange={(e) => setTweet(e.target.value)} value={tweet}/>
-            <button onClick={() => handleClickTweet()}>Tweety</button>
-            <div>
-                <Tweet />
-            </div>
-        </div>   
-        <div>
-            <h2>Trends</h2>
-            <div><Trends /></div>
+          <Tweet />
         </div>
+      </div>
+      <div>
+        <h2>Trends</h2>
+        <div>
+          <Trends />
+        </div>
+      </div>
     </div>
   );
 }
-
