@@ -3,12 +3,14 @@ import {useEffect, useState} from 'react'
 import { useDispatch, useSelector} from 'react-redux'
 import { logout } from '../reducers/user'
 import { addTweet } from '../reducers/tweet';
+import { addTrend } from '../reducers/trend';
 import { useRouter } from 'next/router'
 import Tweet from './Tweet'
 import ShowUser from './ShowUser'
+import Trends from './Trends'
+import { find } from '../../hackatweet-backend/models/tweets';
 
 export default function Profile({setIsConnected} ) {
-    const [renderTweets, setRenderTweets] = useState(0)
     const username = useSelector((state) => state.user.value.username);
     const firstname = useSelector((state) => state.user.value.firstname);
     const allTweets = useSelector((state) => state.tweet.value)
@@ -25,11 +27,13 @@ export default function Profile({setIsConnected} ) {
         })
         .then(response => response.json())
         .then((data) => {
+            dispatch(addTrend(data.newTweet.tweet))
             dispatch(addTweet({
                 firstname: data.newTweet.firstname,
                 username: data.newTweet.username,
                 tweet: data.newTweet.tweet,
-                likes: data.newTweet.likes}))
+                likes: data.newTweet.likes,
+                createdAt: Date.now()}))
             setTweet('')
         })
     }
@@ -47,7 +51,7 @@ export default function Profile({setIsConnected} ) {
         </div>   
         <div>
             <h2>Trends</h2>
-            <div>COMPOSANTS hashtag</div>
+            <div><Trends /></div>
         </div>
     </div>
   );

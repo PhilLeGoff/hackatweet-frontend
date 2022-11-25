@@ -5,9 +5,11 @@ export default function Tweet() {
   const allTweets = useSelector((state) => state.tweet.value)
   console.log('all tweets', allTweets)
   const [tweetsData, setTweetsData] = useState([]);
+
+  console.log('alltweets', allTweets)
   
     const tweets = allTweets.map((data, i) => {
-        console.log('map', data);
+        // console.log('map', data);
       return (
         <div key={i}>
           <div>
